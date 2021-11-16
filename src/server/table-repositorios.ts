@@ -31,7 +31,7 @@ export function repositorios(context:TableContext):TableDefinition{
             {name:'importancia'      , typeName:'text'    },
             {name:'objetivo'         , typeName:'text'    },
             {name:'organizador'      , typeName:'text'    },
-            {name:'organizador'      , typeName:'text'    },
+            {name:'revision'         , typeName:'date'    },
             {name:'reportes'         , typeName:'text'    },
             {name:'cucardas'         , typeName:'text'    },
             {name:'issues'           , typeName:'bigint'  , inTable:false},
