@@ -1,0 +1,22 @@
+server:
+  port: 3000
+  base-url: /siscen
+db:
+  description: base de prueba
+  host: localhost
+  port: 5432
+  database: siscen_db
+  schema: siscen
+  user: siscen_admin
+  password: cambiar_esta_clave
+install:
+  dump:
+    db:
+      owner: siscen_owner
+client-setup: 
+  lang: es
+devel:
+  delay: 0
+log:
+  db:
+    on-demand: true
