@@ -34,9 +34,11 @@ export function repositorios(context:TableContext):TableDefinition{
             {name:'revision'         , typeName:'date'    },
             {name:'reportes'         , typeName:'text'    },
             {name:'cucardas'         , typeName:'text'    },
-            {name:'issues'           , typeName:'bigint'  , inTable:false},
-            {name:'abiertos'         , typeName:'bigint'  , inTable:false},
-            {name:'cerrados'         , typeName:'bigint'  , inTable:false},
+            {name:'issues'           , typeName:'bigint'  , inJoin:'issues_agg'},
+            {name:'abiertos'         , typeName:'bigint'  , inJoin:'issues_agg'},
+            {name:'ultimo_abierto'   , typeName:'bigint'  , inJoin:'issues_agg', title:'últ'},
+            {name:'cerrados'         , typeName:'bigint'  , inJoin:'issues_agg'},
+            {name:'ultimo_cerrado'   , typeName:'bigint'  , inJoin:'issues_agg', title:'últ'},
             {name:'url'              , typeName:'text', clientSide:'displayUrl', serverSide:true, inTable:false},
         ],
         primaryKey:['sitio','org','repo'],
@@ -53,11 +55,18 @@ export function repositorios(context:TableContext):TableDefinition{
             {table:'issues', fields:['sitio','org','repo',{target:'cerrado', value:true }], abr:'C', label:'cerrados'},
         ],
         sql:{
+            join:`  left join lateral (
+                select count(*) as issues
+                    , count(*) filter (where finalizacion is null) as abiertos
+                    , count(*) filter (where finalizacion is not null) as cerrados
+                    , max(issue) filter (where finalizacion is null) as ultimo_abierto
+                    , max(issue) filter (where finalizacion is not null) as ultimo_cerrado
+                  from issues  
+                  where sitio = repositorios.sitio and org=repositorios.org and repo=repositorios.repo
+              ) as issues_agg on true
+            `,
             fields:{
                 url:{expr:`sistema_control_versiones.vinculo||'/'||repositorios.org||'/'||repositorios.repo||'/issues'`},
-                issues:  issuesField(''),
-                abiertos:issuesField('and finalizacion is null'),
-                cerrados:issuesField('and finalizacion is not null'),
             }
         }
     };

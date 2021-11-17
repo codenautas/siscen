@@ -1,6 +1,6 @@
 {
   "name": "siscen",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "description": "Sistema Central",
   "main": "dist/server/server-siscen.js",
@@ -13,7 +13,7 @@
     "@material-ui/icons": "~4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "ajax-best-promise": "^0.3.7",
-    "backend-plus": "^1.12.4",
+    "backend-plus": "^1.13.0",
     "best-globals": "~1.0.0",
     "json4all": "~1.1.0",
     "like-ar": "~0.3.6",

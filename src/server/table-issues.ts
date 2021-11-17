@@ -14,7 +14,7 @@ export function issues(context:TableContext):TableDefinition{
             {name:'org'              , typeName:'text'    },
             {name:'repo'             , typeName:'text'    },
             {name:'issue'            , typeName:'bigint'  , specialDefaultValue:'next_number'},
-            {name:'titulo'           , typeName:'text'    , label:'título'}, 
+            {name:'titulo'           , typeName:'text'    , title:'título'}, 
             {name:'inicio'           , typeName:'date'    , aggregate:'count'}, 
             {name:'cerrado'          , typeName:'boolean' , inTable:false}, 
             {name:'iniciador'        , typeName:'text'    }, 
